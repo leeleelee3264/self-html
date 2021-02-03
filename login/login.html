@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+   
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Admin</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            background: #d2d6de;
+            overflow: hidden;
+        }
+        
+        .login-wrap {
+            height: 100%
+        }
+        .login-wrap-div {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform:translate(-50%, -50%);
+            /*width:800px;*/
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .login-cont {
+            margin-top: 20px;
+            width:700px;
+            height: 315px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+        .login-wrap-div-first {
+        }
+        .login-wrap-div-second > h1 {
+            padding-bottom: 46px;
+            font-weight: bold;
+        }
+        .login-wrap-div-first > h1 > img {
+            display: block;
+            margin: 0 auto;
+        }
+        .input-box {
+            margin-bottom: 10px;
+        }
+        .input-box input:focus {
+            border-bottom: 2px solid #43425D;
+        }
+        .input-box input {
+            width: 70%;
+            height: 50px;
+            font-size: 16px;
+            padding-left: 15px;
+            background: transparent;
+            border: 0;
+            border-bottom:2px solid #C5C5C5; color:#43425D
+        }
+        .input-box input::placeholder {
+            color: #43425D;
+        }
+        .login-btn {
+            width: 70%;
+            height: 50px;
+            font-size: 18px;
+            color: #fff;
+            background: #005CD5;
+            margin-top: 30px;
+            border: 0;
+            cursor: pointer;
+        }
+        .copy-right {
+            margin-top: 57px;
+            vertical-align: bottom;
+            color: #d2d6de;
+        }
+    </style>
+</head>
+<body>
+<div class="login-wrap">
+    <div class="login-wrap-div">
+        <div class="login-cont">
+            <div class="login-wrap-div-first">
+                <h1>
+                    INSERT ANY IMAGE
+                </h1>
+                    <div class="copy-right">
+                        <p>hello.email.kr  |  Tel: +82 00 00 00 
+                            <br>
+                            &copy; 2021.  Inc. all rights reserved.
+                        </p>
+                    </div>
+            </div>
+            <div class="login-wrap-div-second">
+                <h1>ADMIN LOGIN</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Admin Id">
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password">
+                </div>
+                <input type="submit" value="Login" class="login-btn">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>
