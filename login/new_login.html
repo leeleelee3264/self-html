@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<!--██████╗░███╗░░██╗██╗░░██╗
+    ██╔══██╗████╗░██║╚██╗██╔╝
+    ██║░░██║██╔██╗██║░╚███╔╝░
+    ██║░░██║██║╚████║░██╔██╗░
+    ██████╔╝██║░╚███║██╔╝╚██╗
+    ╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝
+    Hi there! nice to meet you!
+    We are a team trying to make heartwarming service for people.
+    If you have interest in what we do, please visit https://www.dnx.kr
+    Have a good one. -->
+<head>
+    <th:block th:replace="fragments/ogheader"></th:block>
+    <link rel="icon" type="image/png" th:href="@{/tcadmin/static/favicon.png}">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Admin</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script th:src="@{/tcadmin/static/js/dnx_ajax.js}"></script>
+    <style>
+        html, body {
+            height: 100%;
+            background: #d2d6de;
+            overflow: hidden;
+        }
+        .login-wrap {
+            height: 100%
+        }
+        .login-wrap-div {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform:translate(-50%, -50%);
+            /*width:800px;*/
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .login-cont {
+            margin-top: 20px;
+            width:700px;
+            height: 315px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+        .login-wrap-div-first {
+        }
+        .login-wrap-div-second > h1 {
+            padding-bottom: 46px;
+            font-weight: bold;
+        }
+        .login-wrap-div-first > h1 > img {
+            display: block;
+            margin: 0 auto;
+        }
+        .input-box {
+            margin-bottom: 10px;
+        }
+        .input-box input:focus {
+            border-bottom: 2px solid #43425D;
+        }
+        .input-box input {
+            width: 70%;
+            height: 50px;
+            font-size: 16px;
+            padding-left: 15px;
+            background: transparent;
+            border: 0;
+            border-bottom:2px solid #C5C5C5; color:#43425D
+        }
+        .input-box input::placeholder {
+            color: #43425D;
+        }
+        .login-btn {
+            width: 70%;
+            height: 50px;
+            font-size: 18px;
+            color: #fff;
+            background: #005CD5;
+            margin-top: 21px;
+            border: 0;
+            cursor: pointer;
+        }
+        .copy-right {
+            margin-top: 74px;
+            vertical-align: bottom;
+            color: #d2d6de;
+        }
+    </style>
+</head>
+<body>
+<div class="login-wrap">
+    <div class="login-wrap-div">
+        <div class="login-cont">
+            <div class="login-wrap-div-first">
+                <h1>
+                    <img src="/tcadmin/static/img/dnx_logo.png" width="380px">
+                </h1>
+                    <div class="copy-right">
+                        <p>hello.dnx.kr  |  Tel: +82 2 592 0105
+                            <br>
+                            &copy; 2021. DNX Inc. all rights reserved.
+                        </p>
+                    </div>
+            </div>
+            <div class="login-wrap-div-second">
+                <h1>DNX ADMIN</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Admin Id" id="admin_id" autofocus>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" id="password">
+                </div>
+                <input type="submit" value="Login" class="login-btn" id="login_btn">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const submit = document.getElementById('login_btn')
+        document.addEventListener('keydown', function (e) {
+            if(e.key === 'Enter') {
+                login()
+                e.preventDefault()
+            }
+        })
+        submit.addEventListener('click', function () {
+            login()
+        })
+        function login () {
+            var json = {
+                login_id: document.getElementById("admin_id").value,
+                password: document.getElementById("password").value,
+                lang: 'ko'
+            };
+            console.log(json)
+            let post_param = {
+                data: json,
+                request_url: '/tcadmin/tts/check',
+                next_url: (function (result) {
+                    switch (result) {
+                        case 1:
+                            // alert("정상적으로 로그인 되었습니다.");
+                            window.location.href = "/tcadmin/user/push/userList?userType=O&condition=F";
+                            break;
+                        case 5:
+                            // etri
+                            window.location.href = "/tcadmin/score/touchtagList?condition=F";
+                            break;
+                        case 6:
+                            // yuhs
+                            window.location.href = '/tcadmin/b/user/list';
+                            break;
+                        case 0:
+                            alert("아이디가 잘못되었거나 패스워드가 오류입니다!!!");
+                            break;
+                        case 2:
+                            alert("아이디가 중복 되었습니다.");
+                            break;
+                        case -1000:
+                            alert("해당 admin의 login 가능 IP나 시간대가 아닙니다.")
+                            break;
+                        default:
+                            alert("알수없는 오류가 발생 했습니다. [Error Code :" + Number(data) + "]");
+                            break;
+                    }
+                })
+            }
+            ajax_post(post_param)
+        }
+    })
+</script>
+</body>
+</html>
